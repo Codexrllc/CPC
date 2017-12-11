@@ -41,11 +41,11 @@
                 "text": char
             },
                     function (char_return) {
-                        if (typeof char_return === 'undefined') {
+                        if (typeof char_return !== 'undefined') {
                             var regex = '\\[\\w+([0-9]+)\\]';
                             var tone = char_return.data[0][0].match(regex);
 
-                            if (typeof tone[1] === 'undefined') {
+                            if (typeof tone[1] !== 'undefined') {
                                 chrome.storage.sync.get("tone_" + tone[1], function (obj) {
                                     var tone_color = Object.values(obj)[0];
                                     $('body').highlight(char_return.data[0][1], 'tone-' + tone[1]);
