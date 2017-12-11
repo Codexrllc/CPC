@@ -4,7 +4,7 @@
         ---
 
         Originally based on Synesthete
-        Copyright (C) 2015 Adam, lastname unknown
+        Copyright (C) 2015 Adam Savvas
         https://chrome.google.com/webstore/detail/synesthetize/ldljgghnflfphlnpneghciodeehilana
 
         ---
