@@ -1,6 +1,7 @@
 {
     "name": "Chinese Personalized Colors",
-    "version": "1.0",
+    "version": "0.0.0.1",
+    "short_name": "Zhongwen test data",
     "manifest_version": 2,
     "description": "Color code individual Chinese characters",
     "options_ui": {
@@ -24,7 +25,10 @@
         "default_title": "CPC"
     },
     "icons": {
-        "128": "cpc.png"
+        "128": "cpc-128px.png",
+        "48": "cpc-48px.png",
+        "16": "cpc-16px.png"
     },
+    "author": "Andrew Alexander",
     "web_accessible_resources": ["css/*", "js/*", "images/*"]
 }
