@@ -1,39 +1,42 @@
-(function(){
-if (!localStorage.letBlocks){
-	var item = Array(5); 
-	item[0] = {str: 'A', clr: '#800000'}; //maroon
-	item[1] = {str: 'E',clr: '#008000'}; //green
-	item[2] = {str: 'I', clr: '#0000ff'}; //blue
-	item[3] = {str: 'O', clr:'#008080'}; //teal
-	item[4] = {str:'U',clr: '#800080'}; //purple
-  localStorage["letBlocks"] = JSON.stringify(item);
-  localStorage['saved'] = 'Y';
+/*
+        Chinese Personalized Colors - A tone colorizer
+        Copyright (C) 2017 Andrew Alexander
+        
+        ---
+        
+        Originally based on Zhongwen - A Chinese-English Popup Dictionary
+        Copyright (C) 2011 Christian Schiller
+        https://chrome.google.com/extensions/detail/kkmlkkjojmombglmlpbpapmhcaljjkde
 
-}
+        ---
 
-chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
-	if (request.method == "getColors"){
-		var letBlocks = JSON.parse(localStorage.letBlocks);
+        This program is free software; you can redistribute it and/or modify
+        it under the terms of the GNU General Public License as published by
+        the Free Software Foundation; either version 2 of the License, or
+        (at your option) any later version.
 
-		sendResponse(letBlocks);
-  } else if(request.method === "get_temp_disable") {
-		sendResponse({disabled:window.localStorage.temp_disable==="Y"}); 
-  } else if(request.method === 'toggle_temp_disable'){
+        This program is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        GNU General Public License for more details.
 
-  	if(window.localStorage.temp_disable === "Y"){
-			window.localStorage.temp_disable = null;
-  	}
-		else{
-			window.localStorage.temp_disable = "Y";
-		}
+        You should have received a copy of the GNU General Public License
+        along with this program; if not, write to the Free Software
+        Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
-		sendResponse({suc:"success"});
-  } else {
-		sendResponse({}); // snub them.
-  }
+        ---
+
+        Please do not change or remove any of the copyrights or links to web pages
+        when modifying any of the files.
+*/
+
+chrome.extension.onRequest.addListener(function(request, sender, response) {
+    switch(request.type) {
+        case 'search':
+            var e = zhongwenMain.search(request.text);
+            response(e);
+            break;
+        default:
+    // ignore
+    }
 });
-
-
-
-
-})();

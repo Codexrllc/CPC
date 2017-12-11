@@ -1,28 +1,32 @@
 <html>
-<head><title>Synaesthete options</title></head>
-<body>
-<style>
-	li {
-		width: 300px;
-	}
-</style>
+    <head><title>CPC Options</title></head>
+    <body>
+        <style>
+            .color-options div {
+                margin-top: 1em;
+                margin-bottom: 1em;
+            }
+            .color-options label {
+                margin-right: 1em;
+            }
+            body {
+                overflow-y: hidden;
+            }
+        </style>
+        <h2>Choose a color per tone</h2>
 
-<ol id="list">
-	
-</ol>
+        <div id="status"></div>
 
-<div>
-	<label>character:</label><input id="add_character" type='text'>
-	<label>color: </label><input id="add_color" type='color'>
-	<button id='addButton'>add</button>
-</div>
+        <div class="color-options">
+            <div><label>Tone 1</label><input id="tone_1" type='color'></div>
+            <div><label>Tone 2</label><input id="tone_2" type='color'></div>
+            <div><label>Tone 3</label><input id="tone_3" type='color'></div>
+            <div><label>Tone 4</label><input id="tone_4" type='color'></div>
+            <div><label>Tone 5</label><input id="tone_5" type='color'></div>
+        </div>
 
+        <button id='resetButton'>Reset to default</button>
 
-<button id='resetButton'>reset to default</button>
-
-<p> Note: if two rules contain the same character, the second rule is ignored. For example, e = green, me = red, then the 'me' rule will be completely ignored.
-</p>
-
-<script src="optsave.js"></script>
-</body>
+        <script src="optsave.js"></script>
+    </body>
 </html>

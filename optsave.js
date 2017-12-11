@@ -1,69 +1,69 @@
-(function(){
+/*
+        Chinese Personalized Colors - A tone colorizer
+        Copyright (C) 2017 Andrew Alexander
+        ---
 
-chrome.runtime.getBackgroundPage(function(bgPage){
+        Originally based on Synesthete
+        Copyright (C) 2015 Adam, lastname unknown
+        https://chrome.google.com/webstore/detail/synesthetize/ldljgghnflfphlnpneghciodeehilana
+ */
 
+(function () {
 
-	var list_el = document.getElementById('list'),
-		add_button_el = document.getElementById('addButton'),
-		colors;
+    function save_options() {
+        chrome.storage.sync.set({
+            'tone_1': document.getElementById('tone_1').value,
+            'tone_2': document.getElementById('tone_2').value,
+            'tone_3': document.getElementById('tone_3').value,
+            'tone_4': document.getElementById('tone_4').value,
+            'tone_5': document.getElementById('tone_5').value
+        }, function () {
+            var status = document.getElementById('status');
+            status.textContent = 'Options saved.';
+        });
+    }
 
-	var remove = function(e){
-		var id = e.target.id;
-		var index = parseInt(id.slice(4));
-		if(isFinite(index)){
-			colors.splice(index,1);
-			bgPage.localStorage.letBlocks = JSON.stringify(colors); 
-			refresh();
-		}
-	}
+    function restore_options() {
+        chrome.storage.sync.get(default_colors(), function (items) {
+            document.getElementById('tone_1').value = items.tone_1;
+            document.getElementById('tone_2').value = items.tone_2;
+            document.getElementById('tone_3').value = items.tone_3;
+            document.getElementById('tone_4').value = items.tone_4;
+            document.getElementById('tone_5').value = items.tone_5;
+        });
 
+    }
 
-	add_button_el.onclick = function(){
-		var character = document.getElementById('add_character').value;
-		var color = document.getElementById('add_color').value;
-		colors.push({str: character, clr:color});
-		bgPage.localStorage.letBlocks = JSON.stringify(colors);
-		refresh();
-	};
+    function default_colors() {
+        return {
+            tone_1: '#FF0000',
+            tone_2: '#ffa500',
+            tone_3: '#00b300',
+            tone_4: '#1795e8',
+            tone_5: '#808080'
+        };
+    }
 
-	var refresh = function(){
+    function default_options() {
+        var default_colors_obj = default_colors();
+        document.getElementById('tone_1').value = default_colors_obj['tone_1'];
+        document.getElementById('tone_2').value = default_colors_obj['tone_2'];
+        document.getElementById('tone_3').value = default_colors_obj['tone_3'];
+        document.getElementById('tone_4').value = default_colors_obj['tone_4'];
+        document.getElementById('tone_5').value = default_colors_obj['tone_5'];
 
-		colors = JSON.parse(bgPage.localStorage.letBlocks);
+        chrome.storage.sync.set(default_colors());
 
-		var str = "";
-		colors.forEach(function(elm, index){
-			str = str + "<li>"+elm.str+" : "+elm.clr+"<button id='btn_+"+index+"'> X </button></li>"
-		});
+    }
 
-		list_el.innerHTML = str;
+    function getElementsArray() {
+        return ['tone_1', 'tone_2', 'tone_3', 'tone_4', 'tone_5'];
+    }
 
-		list_el.addEventListener("click", remove, false)
-	}
-
-	document.getElementById('resetButton').onclick = function(){
-		var item = Array(5); 
-		item[0] = {str: 'e', clr: '#800000'}; //maroon
-		item[1] = {str: 'a',clr: '#008000'}; //green
-		item[2] = {str: 'I', clr: '#0000ff'}; //blue
-		item[3] = {str: 'O', clr:'#008080'}; //teal
-		item[4] = {str:'U',clr: '#800080'}; //purple
-		bgPage.localStorage.letBlocks = JSON.stringify(item);
-		refresh();
-	}
-
-	refresh();
-
-	
-
-
-});
-
-
-setColors = function(colors){
-	chrome.runtime.getBackgroundPage(function(bgPage){
-		bgPage.localStorage.letBlocks = JSON.stringify(colors); 
-	});
-};
-
-
+    document.addEventListener('DOMContentLoaded', restore_options);
+    document.getElementById('resetButton').addEventListener("click", default_options);
+    var elementsArray = getElementsArray();
+    elementsArray.forEach(function (elem) {
+        document.getElementById(elem).addEventListener("input", save_options);
+    });
 })();
