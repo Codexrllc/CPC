@@ -1,7 +1,7 @@
 {
     "name": "Chinese Personalized Colors",
     "version": "0.0.0.1",
-    "short_name": "Zhongwen test data",
+    "short_name": "CPC",
     "manifest_version": 2,
     "description": "Color code individual Chinese characters",
     "options_ui": {
